@@ -156,14 +156,14 @@ RCT_EXPORT_METHOD(prepare:(nonnull NSNumber*)playerId
     NSNumber *mixWithOthers = [options objectForKey:@"mixWithOthers"];
     NSError *error = nil;
     [[AVAudioSession sharedInstance] setCategory:avAudioSessionCategory
-                                            mode:AVAudioSessionModeVideoChat
                                      withOptions: mixWithOthers ? AVAudioSessionCategoryOptionMixWithOthers |
                                                                     AVAudioSessionCategoryOptionAllowBluetooth
                                                                 : AVAudioSessionCategoryOptionAllowBluetooth
                                            error: &error];
+    [[AVAudioSession sharedInstance] setMode:AVAudioSessionModeVideoChat error:&error];
     if (error) {
         NSDictionary* dict = [Helpers errObjWithCode:@"preparefail"
-                                         withMessage:@"Failed to set audio session category."];
+                                         withMessage:@"Failed to set audio session category/mode."];
         callback(@[dict]);
         return;
     }
