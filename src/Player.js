@@ -18,6 +18,7 @@ export const PlaybackCategories = {
   Playback: 1,
   Ambient: 2,
   SoloAmbient: 3,
+  PlayAndRecord: 4,
 }
 
 const defaultPlayerOptions = {
