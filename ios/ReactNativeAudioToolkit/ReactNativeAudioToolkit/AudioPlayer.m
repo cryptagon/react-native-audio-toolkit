@@ -157,7 +157,9 @@ RCT_EXPORT_METHOD(prepare:(nonnull NSNumber*)playerId
     NSError *error = nil;
     [[AVAudioSession sharedInstance] setCategory:avAudioSessionCategory
                                             mode:AVAudioSessionModeVideoChat
-                                     withOptions: mixWithOthers ? AVAudioSessionCategoryOptionMixWithOthers : 0
+                                     withOptions: mixWithOthers ? AVAudioSessionCategoryOptionMixWithOthers |
+                                                                    AVAudioSessionCategoryOptionAllowBluetooth
+                                                                : AVAudioSessionCategoryOptionAllowBluetooth
                                            error: &error];
     if (error) {
         NSDictionary* dict = [Helpers errObjWithCode:@"preparefail"
@@ -165,7 +167,7 @@ RCT_EXPORT_METHOD(prepare:(nonnull NSNumber*)playerId
         callback(@[dict]);
         return;
     }
-    
+
     // Initialize player
     ReactPlayer* player = [[ReactPlayer alloc]
                         initWithPlayerItem:item];
